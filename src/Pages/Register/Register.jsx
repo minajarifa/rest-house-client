@@ -2,6 +2,7 @@ import { CiUser } from "react-icons/ci";
 import { GoUpload } from "react-icons/go";
 import { HiOutlineMail } from "react-icons/hi";
 import { RiLockPasswordFill } from "react-icons/ri";
+import { Link } from "react-router-dom";
 
 export default function Register() {
   return (
@@ -16,13 +17,7 @@ export default function Register() {
                 alt=""
               />
             </div>
-            <div className="flex items-center justify-center mt-6">
-              <a
-                href="#"
-                className="w-1/3 pb-4 font-medium text-center text-gray-500 capitalize border-b dark:border-gray-400 dark:text-gray-300"
-              >
-                sign in
-              </a>
+            <div className="flex items-center justify-center mt-6">  
               <a
                 href="#"
                 className="w-1/3 pb-4 font-medium text-center text-gray-800 capitalize border-b-2 border-blue-500 dark:border-blue-400 dark:text-white"
@@ -32,7 +27,7 @@ export default function Register() {
             </div>
             <div className="relative flex items-center mt-8">
               <span className="absolute">
-               <CiUser  className="w-6 h-6 mx-3 text-gray-300 dark:text-gray-500"/>
+                <CiUser className="w-6 h-6 mx-3 text-gray-300 dark:text-gray-500" />
               </span>
               <input
                 type="text"
@@ -40,33 +35,27 @@ export default function Register() {
                 placeholder="Username"
               />
             </div>
-
             <label
               for="dropzone-file"
               className="flex items-center px-3 py-3 mx-auto mt-6 text-center bg-white border-2 border-dashed rounded-lg cursor-pointer dark:border-gray-600 dark:bg-gray-900"
             >
-             <GoUpload   className="w-6 h-6 text-gray-300 dark:text-gray-500"/>
-
+              <GoUpload className="w-6 h-6 text-gray-300 dark:text-gray-500" />
               <h2 className="mx-3 text-gray-400">Profile Photo</h2>
-
               <input id="dropzone-file" type="file" className="hidden" />
             </label>
-
             <div className="relative flex items-center mt-6">
               <span className="absolute">
-                <HiOutlineMail className="w-6 h-6 mx-3 text-gray-300 dark:text-gray-500"/>
+                <HiOutlineMail className="w-6 h-6 mx-3 text-gray-300 dark:text-gray-500" />
               </span>
-
               <input
                 type="email"
                 className="block w-full py-3 text-gray-700 bg-white border rounded-lg px-11 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
                 placeholder="Email address"
               />
             </div>
-
             <div className="relative flex items-center mt-4">
               <span className="absolute">
-                <RiLockPasswordFill className="w-6 h-6 mx-3 text-gray-300 dark:text-gray-500"/>
+                <RiLockPasswordFill className="w-6 h-6 mx-3 text-gray-300 dark:text-gray-500" />
               </span>
               <input
                 type="password"
@@ -76,7 +65,7 @@ export default function Register() {
             </div>
             <div className="relative flex items-center mt-4">
               <span className="absolute">
-               <RiLockPasswordFill className="w-6 h-6 mx-3 text-gray-300 dark:text-gray-500"/>
+                <RiLockPasswordFill className="w-6 h-6 mx-3 text-gray-300 dark:text-gray-500" />
               </span>
               <input
                 type="password"
@@ -89,17 +78,19 @@ export default function Register() {
                 Sign Up
               </button>
               <div className="mt-6 text-center ">
-                <a
-                  href="#"
-                  className="text-sm text-blue-500 hover:underline dark:text-blue-400"
-                >
-                  Already have an account?
-                </a>
+                <p className="text-sm ">
+                  Already have an account? plaese
+                  <Link className="mx-5 text-blue-500 hover:underline dark:text-blue-400">
+                    Login
+                  </Link>
+                </p>
               </div>
             </div>
           </form>
         </div>
       </section>
+      
     </div>
   );
 }
+
