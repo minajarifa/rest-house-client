@@ -8,28 +8,32 @@ import {
   updateProfile,
 } from "firebase/auth";
 import { createContext, useEffect, useState } from "react";
-import { auth } from "../firebase/firebase.config";
+import auth from "../firebase/firebase.config";
 
 export const AuthContext = createContext(null);
 export default function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const googleProvider = new GoogleAuthProvider();
-  //   create user
+
+  // create user
   const createUser = (email, password) => {
     setLoading(true);
     return createUserWithEmailAndPassword(auth, email, password);
   };
-  //   signin user
+
+  // signin user
   const signIn = (email, password) => {
     setLoading(true);
     return signInWithEmailAndPassword(auth, email, password);
   };
-  //   logout
+
+  // logout
   const logout = () => {
     setLoading(true);
     return signOut(auth);
   };
+
   // update photo , user name
   const updateUserProfile = (name, photo) => {
     return updateProfile(auth.currentUser, {
@@ -37,12 +41,14 @@ export default function AuthProvider({ children }) {
       photoURL: photo,
     });
   };
+
   // google login
   const googleSigning = () => {
     setLoading(true);
     return signInWithPopup(auth, googleProvider);
   };
-  //   user controler
+
+  // user controler
   useEffect(() => {
     const unsunscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
