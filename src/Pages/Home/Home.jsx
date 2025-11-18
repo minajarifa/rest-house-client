@@ -1,7 +1,10 @@
+// import Button from "../../Components/Shared/Button/Button";
 
 
 export default function Home() {
   return (
-    <div>Home</div>
+    <div>
+      {/* <Button></Button> */}
+    </div>
   )
 }
