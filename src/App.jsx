@@ -10,7 +10,7 @@ function App() {
     <>
       <div className="mx-28">
         <Navber></Navber>
-        <div className="mx-10 my-10">
+        <div className="pt-24 m-h-[calc(100vh-68px)]">
         <Outlet></Outlet>
         </div>
         <Footer></Footer>
