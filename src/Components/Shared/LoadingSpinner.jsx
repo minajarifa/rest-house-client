@@ -14,9 +14,8 @@ const LoadingSpinner = ({ smallHeight }) => {
     </div>
   )
 }
-
 LoadingSpinner.propTypes = {
   smallHeight: PropTypes.bool,
 }
-
 export default LoadingSpinner
+
