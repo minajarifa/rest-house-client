@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-// import queryString from 'query-string'
+import queryString from 'query-string'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 const CategoryBox = ({ label, icon: Icon }) => {
   // eslint-disable-next-line no-unused-vars

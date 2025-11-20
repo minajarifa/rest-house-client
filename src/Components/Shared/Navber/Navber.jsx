@@ -67,7 +67,7 @@ export default function Navber() {
                <Link to='/Register'>Register</Link>
               </li>
               <li>
-               <button className="btn btn-primary">Primary</button>
+               <button className="btn btn-primary">Logout</button>
               </li>
             </ul>
           </div>

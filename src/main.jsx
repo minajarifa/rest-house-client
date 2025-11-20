@@ -11,14 +11,17 @@ import {
   QueryClientProvider,
 } from "@tanstack/react-query";
 
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import AuthProvider from "./Providers/AuthProvider";
 const queryClient = new QueryClient();
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
+      <AuthProvider>
         <ReactQueryDevtools initialIsOpen={false} />
-      <RouterProvider router={router} />
+        <RouterProvider router={router} />
+      </AuthProvider>
     </QueryClientProvider>
   </StrictMode>
 );
