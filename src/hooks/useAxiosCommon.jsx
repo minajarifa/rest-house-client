@@ -1,7 +1,10 @@
-import React from 'react'
+import axios from 'axios'
 
-export default function useAxiosCommon() {
-  return (
-    <div>useAxiosCommon</div>
-  )
+export const axiosCommon = axios.create({
+  baseURL: import.meta.env.VITE_API_URL,
+})
+const useAxiosCommon = () => {
+  return axiosCommon
 }
+
+export default useAxiosCommon
