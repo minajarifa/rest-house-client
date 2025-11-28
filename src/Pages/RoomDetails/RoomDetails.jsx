@@ -4,15 +4,14 @@ import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
 import useAxiosCommon from '../../hooks/useAxiosCommon';
 import LoadingSpinner from '../../Components/Shared/LoadingSpinner';
-import { Container } from 'postcss';
 import Heading from '../../Components/Shared/Heading';
+import Container from '../../Components/Shared/Container';
 
 const RoomDetails = () => {
   const { id } = useParams();
   const axiosCommon = useAxiosCommon();
-
-  console.log('axiosCommon', axiosCommon);
-  console.log(id, 'id');
+  // console.log('axiosCommon', axiosCommon);
+  // console.log(id, 'id');
 
   const { data: room, isLoading, isError } = useQuery({
     queryKey: ['room', id],
@@ -24,10 +23,8 @@ const RoomDetails = () => {
       console.error('Error fetching room data:', error);
     },
   });
-
-  console.log(room);
-  console.log(isError);
-
+  // console.log(room);
+  // console.log(isError);
   if (isLoading) return <LoadingSpinner />;
   if (isError) return <div>Error loading room details. Please try again later.</div>;
 
@@ -41,11 +38,11 @@ const RoomDetails = () => {
           {/* Header */}
           <div className="flex flex-col gap-6">
             <div>
-              <Heading title={room.title} subtitle={room.location} />
+              <Heading title={room?.title} subtitle={room?.location} />
               <div className="w-full md:h-[60vh] overflow-hidden rounded-xl">
                 <img
                   className="object-cover w-full"
-                  src={room.image}
+                  src={room?.image}
                   alt="header image"
                 />
               </div>
