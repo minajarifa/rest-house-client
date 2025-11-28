@@ -10,9 +10,7 @@ const Rooms = () => {
   const axiosCommon = useAxiosCommon();
   // eslint-disable-next-line no-unused-vars
   const [params, setParams] = useSearchParams();
-  console.log(params);
   const category = params.get("category");
-  console.log(category);
   const { data: rooms = [], isLoading } = useQuery({
     queryKey: ["rooms", category],
     queryFn: async () => {

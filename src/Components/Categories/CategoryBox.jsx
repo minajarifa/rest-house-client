@@ -13,7 +13,7 @@ const CategoryBox = ({ label, icon: Icon }) => {
       url: "/",
       query: currentQuery,
     });
-    console.log(url);
+    // console.log(url);
     // url output---> /?category=label
     // 2. Set query string in url
     navigate(url);
@@ -28,12 +28,12 @@ const CategoryBox = ({ label, icon: Icon }) => {
     justify-center 
     gap-2
     p-3
-    border-b-2
    hover:text-neutral-800
     transition
-    cursor-pointer  ${
-      category === label && "border-b-neutral-800 text-neutral-800"
-    } `}
+    cursor-pointer  
+    
+    ${category === label && "border-b-neutral-800 text-neutral-800   border-b-2"}
+       `}
     >
       <Icon size={26} />
       <div className="text-sm font-medium">{label}</div>
