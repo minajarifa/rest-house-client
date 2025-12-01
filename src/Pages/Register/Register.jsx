@@ -4,12 +4,19 @@ import { GoUpload } from "react-icons/go";
 import { HiOutlineMail } from "react-icons/hi";
 import { RiLockPasswordFill } from "react-icons/ri";
 import { Link } from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
 
 export default function Register() {
+  const {signInWithGoogle,updateUserProfile,createUser}=useAuth()
   const handleRegister = (e) => {
     e.preventDefault();
-   const form = e.target;
-   console.log(form)
+    const form = e.target;
+    const name = form.name.value;
+    const image = form.image.files[0];
+    const password = form.password.value;
+    const confirmPassword = form.confirmPassword.value;
+    const info = { name, password, confirmPassword, image };
+    console.log(info);
   };
   return (
     <div>
@@ -38,8 +45,14 @@ export default function Register() {
               className="flex items-center px-3 py-3 mx-auto mt-6 text-center bg-white border-2 border-dashed rounded-lg cursor-pointer dark:border-gray-600 dark:bg-gray-900"
             >
               <GoUpload className="w-6 h-6 text-gray-300 dark:text-gray-500" />
-              <h2 className="mx-3 text-gray-400">Profile Photo</h2>
-              <input  id="image" type="file" className="hidden" name="" accept="image/*"/>
+              {/* <h2 className="mx-3 text-gray-400">Profile Photo</h2> */}
+              <input
+              required
+                type="file"
+                id="image"
+                name="image"
+                accept="image/*"
+              />
             </label>
             <div className="relative flex items-center mt-6">
               <span className="absolute">
@@ -73,7 +86,6 @@ export default function Register() {
                 type="password"
                 required
                 name="confirmPassword"
-                
                 className="block w-full px-10 py-3 text-gray-700 bg-white border rounded-lg dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
                 placeholder="Confirm Password"
               />
