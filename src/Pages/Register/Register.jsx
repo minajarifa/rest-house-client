@@ -3,20 +3,44 @@ import { FcGoogle } from "react-icons/fc";
 import { GoUpload } from "react-icons/go";
 import { HiOutlineMail } from "react-icons/hi";
 import { RiLockPasswordFill } from "react-icons/ri";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
+import axios from "axios";
+import Swal from "sweetalert2";
 
 export default function Register() {
-  const {signInWithGoogle,updateUserProfile,createUser}=useAuth()
-  const handleRegister = (e) => {
+  const { signInWithGoogle, updateUserProfile, createUser,setLoading } = useAuth();
+  const navigate = useNavigate();
+  const handleRegister = async (e) => {
+    // user information by form
     e.preventDefault();
     const form = e.target;
     const name = form.name.value;
-    const image = form.image.files[0];
+    const email = form.email.value;
     const password = form.password.value;
     const confirmPassword = form.confirmPassword.value;
-    const info = { name, password, confirmPassword, image };
-    console.log(info);
+    const image = form.image.files[0];
+    const info = { name, email, password, confirmPassword, image };
+    const formData = new FormData();
+    formData.append("image", image);
+    // image upload from imgbb
+    try {
+      const { data } = await axios.post(
+        `https://api.imgbb.com/1/upload?key=${VITE_IMGBB_API_KEY}`,
+        formData
+      );
+      console.log(data.data.display_url);
+      // create user
+      const result = await createUser(email, password);
+      console.log(result);
+      // update user and added profile pic
+      await updateUserProfile(name, data?.data?.display_url);
+      // navigate and show a toast
+      navigate("/");
+      Swal.fire("User created successfully");
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <div>
@@ -47,7 +71,7 @@ export default function Register() {
               <GoUpload className="w-6 h-6 text-gray-300 dark:text-gray-500" />
               {/* <h2 className="mx-3 text-gray-400">Profile Photo</h2> */}
               <input
-              required
+                required
                 type="file"
                 id="image"
                 name="image"
