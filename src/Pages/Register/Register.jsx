@@ -7,9 +7,11 @@ import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import axios from "axios";
 import Swal from "sweetalert2";
+import { ImSpinner3 } from "react-icons/im";
+
 
 export default function Register() {
-  const { signInWithGoogle, updateUserProfile, createUser,setLoading } = useAuth();
+  const { signInWithGoogle, updateUserProfile, createUser,setLoading,loading } = useAuth();
   const navigate = useNavigate();
   const handleRegister = async (e) => {
     // user information by form
@@ -25,8 +27,9 @@ export default function Register() {
     formData.append("image", image);
     // image upload from imgbb
     try {
+      setLoading(true)
       const { data } = await axios.post(
-        `https://api.imgbb.com/1/upload?key=${VITE_IMGBB_API_KEY}`,
+        `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMGBB_API_KEY}`,
         formData
       );
       console.log(data.data.display_url);
@@ -42,6 +45,8 @@ export default function Register() {
       console.log(error);
     }
   };
+  // handleGoogleSingin
+  // TODO
   return (
     <div>
       <section className="bg-white dark:bg-gray-900">
@@ -115,8 +120,8 @@ export default function Register() {
               />
             </div>
             <div className="mt-6">
-              <button className="w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-lg hover:bg-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50">
-                Continue
+              <button disabled={loading} className="w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-lg hover:bg-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50">
+                {loading?<ImSpinner3 className="m-auto animate-spin"/>:"Continue"}
               </button>
               {/*  */}
               <p className="mt-4 text-center text-gray-600 dark:text-gray-400">
@@ -137,7 +142,7 @@ export default function Register() {
                     to="/Login"
                     className="mx-5 text-blue-500 hover:underline dark:text-blue-400"
                   >
-                    Login
+                    login
                   </Link>
                 </p>
               </div>

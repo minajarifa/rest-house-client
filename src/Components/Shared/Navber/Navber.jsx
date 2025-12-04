@@ -1,12 +1,24 @@
 import { Link } from "react-router-dom";
+import useAuth from "../../../hooks/useAuth";
 
 export default function Navber() {
- const navLink=(<>
-  <Link className="m-2" to={"/"}>Home</Link>
-  <Link className="m-2" to={"/"}>Home</Link>
-  <Link className="m-2" to={"/"}>Home</Link>
-  <Link className="m-2" to={"/"}>Home</Link>
-  </>)
+  const { user } = useAuth();
+  const navLink = (
+    <>
+      <Link className="m-2" to={"/"}>
+        Home
+      </Link>
+      <Link className="m-2" to={"/"}>
+        Home
+      </Link>
+      <Link className="m-2" to={"/"}>
+        Home
+      </Link>
+      <Link className="m-2" to={"/"}>
+        Home
+      </Link>
+    </>
+  );
   return (
     <div>
       <div className="shadow-sm navbar bg-base-100">
@@ -32,15 +44,13 @@ export default function Navber() {
               tabIndex="-1"
               className="p-2 mt-3 shadow menu menu-sm dropdown-content bg-base-100 rounded-box z-1 w-52"
             >
-             {navLink}
+              {navLink}
             </ul>
           </div>
           <a className="text-xl btn btn-ghost">daisyUI</a>
         </div>
         <div className="hidden navbar-center lg:flex">
-          <ul className="px-1 menu menu-horizontal">
-           {navLink}
-          </ul>
+          <ul className="px-1 menu menu-horizontal">{navLink}</ul>
         </div>
         <div className="navbar-end">
           <div className="dropdown dropdown-end">
@@ -52,7 +62,11 @@ export default function Navber() {
               <div className="w-10 rounded-full">
                 <img
                   alt="User Profile"
-                  src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+                  src={
+                    user
+                      ? user?.photoURL
+                      : "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+                  }
                 />
               </div>
             </div>
@@ -61,13 +75,13 @@ export default function Navber() {
               className="p-2 mt-3 shadow menu menu-sm dropdown-content bg-base-100 rounded-box z-1 w-52"
             >
               <li>
-               <Link to='/Login'>Login</Link>
+                <Link to="/Login">Login</Link>
               </li>
               <li>
-               <Link to='/Register'>Register</Link>
+                <Link to="/Register">Register</Link>
               </li>
               <li>
-               <button className="btn btn-primary">Logout</button>
+                <button className="btn btn-primary">Logout</button>
               </li>
             </ul>
           </div>
