@@ -2,7 +2,8 @@ import { Link } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
 
 export default function Navber() {
-  const { user } = useAuth();
+  const { user,logOut } = useAuth();
+  
   const navLink = (
     <>
       <Link className="m-2" to={"/"}>
@@ -61,11 +62,13 @@ export default function Navber() {
             >
               <div className="w-10 rounded-full">
                 <img
+                  className=""
+                  referrerPolicy="no-referrer"
                   alt="User Profile"
                   src={
                     user
                       ? user?.photoURL
-                      : "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+                      : "https://i.ibb.co.com/mrK7Sjcw/download.png"
                   }
                 />
               </div>
@@ -81,7 +84,11 @@ export default function Navber() {
                 <Link to="/Register">Register</Link>
               </li>
               <li>
-                <button className="btn btn-primary">Logout</button>
+                <button
+                 onClick={()=> logOut()}
+                  className="btn btn-primary">
+                  Logout
+                </button>
               </li>
             </ul>
           </div>

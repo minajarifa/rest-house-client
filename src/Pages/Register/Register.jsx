@@ -9,9 +9,14 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import { ImSpinner3 } from "react-icons/im";
 
-
 export default function Register() {
-  const { signInWithGoogle, updateUserProfile, createUser,setLoading,loading } = useAuth();
+  const {
+    signInWithGoogle,
+    updateUserProfile,
+    createUser,
+    setLoading,
+    loading,
+  } = useAuth();
   const navigate = useNavigate();
   const handleRegister = async (e) => {
     // user information by form
@@ -27,9 +32,11 @@ export default function Register() {
     formData.append("image", image);
     // image upload from imgbb
     try {
-      setLoading(true)
+      setLoading(true);
       const { data } = await axios.post(
-        `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMGBB_API_KEY}`,
+        `https://api.imgbb.com/1/upload?key=${
+          import.meta.env.VITE_IMGBB_API_KEY
+        }`,
         formData
       );
       console.log(data.data.display_url);
@@ -46,7 +53,17 @@ export default function Register() {
     }
   };
   // handleGoogleSingin
-  // TODO
+  const handleGoogleRegister = async () => {
+    try {
+      setLoading(true);
+      await signInWithGoogle();
+      // navigate and show a toast
+      navigate("/");
+      Swal.fire("User created successfully");
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <div>
       <section className="bg-white dark:bg-gray-900">
@@ -120,20 +137,27 @@ export default function Register() {
               />
             </div>
             <div className="mt-6">
-              <button disabled={loading} className="w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-lg hover:bg-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50">
-                {loading?<ImSpinner3 className="m-auto animate-spin"/>:"Continue"}
+              <button
+                disabled={loading}
+                className="w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-lg hover:bg-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50"
+              >
+                {loading ? (
+                  <ImSpinner3 className="m-auto animate-spin" />
+                ) : (
+                  "Continue"
+                )}
               </button>
               {/*  */}
               <p className="mt-4 text-center text-gray-600 dark:text-gray-400">
                 or sign in with
               </p>
-              <a
-                href="#"
-                className="flex items-center justify-center px-6 py-3 mt-4 text-gray-600 transition-colors duration-300 transform border rounded-lg dark:border-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600"
+              <button
+                onClick={handleGoogleRegister}
+                className="flex items-center justify-center w-full px-6 py-3 mt-4 text-gray-600 transition-colors duration-300 transform border rounded-lg dark:border-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600"
               >
                 <FcGoogle className="text-3xl" />
                 <span className="mx-2">Sign in with Google</span>
-              </a>
+              </button>
               {/*  */}
               <div className="mt-6 text-center ">
                 <p className="text-sm ">
