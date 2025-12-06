@@ -1,7 +1,7 @@
 import { FcGoogle } from "react-icons/fc";
 import { MdOutlineEmail } from "react-icons/md";
 import { RiLockPasswordFill } from "react-icons/ri";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import useAuth from "../../hooks/useAuth";
 import { ImSpinner3 } from "react-icons/im";
@@ -10,6 +10,8 @@ import toast from "react-hot-toast";
 export default function Login() {
   const { signInWithGoogle, signIn, loading, setLoading, resetPassword } =
     useAuth();
+  const location = useLocation();
+  const from = location?.state || "/";
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const handleLoginSubmit = async (e) => {
@@ -21,7 +23,7 @@ export default function Login() {
       // login user
       const result = await signIn(email, password);
       console.log(result);
-      navigate("/");
+      navigate(from);
       Swal.fire("User created successfully");
       setLoading(false);
     } catch (error) {
@@ -35,11 +37,13 @@ export default function Login() {
     if (!email) return Swal.fire("Please write your email first!");
     try {
       await resetPassword(email);
-      toast.success("Resent success! Please chack your email for further process....")
-      setLoading(false)
+      toast.success(
+        "Resent success! Please chack your email for further process...."
+      );
+      setLoading(false);
     } catch (error) {
       console.log(error);
-      toast.error(`${error.message}`)
+      toast.error(`${error.message}`);
       setLoading(false);
     }
     console.log(email);
@@ -71,7 +75,7 @@ export default function Login() {
               <input
                 type="email"
                 name="email"
-                onBlur={e=>setEmail(e.target.value)}
+                onBlur={(e) => setEmail(e.target.value)}
                 required
                 className="block w-full py-3 text-gray-700 bg-white border rounded-lg px-11 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
                 placeholder="Email address"

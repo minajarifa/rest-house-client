@@ -4,7 +4,7 @@ import Home from "../Pages/Home/Home";
 import ErrorPage from "../Components/ErrorPage/ErrorPage";
 import Login from "../Pages/Login/Login";
 import Register from "../Pages/Register/Register";
-// import PrivateRoute from "./PrivateRoute";
+import PrivateRoute from "./PrivateRoute";
 import RoomDetails from "../Pages/RoomDetails/RoomDetails";
 const router = createBrowserRouter([
   {
@@ -23,9 +23,9 @@ const router = createBrowserRouter([
        {
         path: '/room/:id',
         element: (
-          // <PrivateRoute>
+          <PrivateRoute>
             <RoomDetails />
-          // </PrivateRoute>
+           </PrivateRoute>
         ),
       },
     ],
