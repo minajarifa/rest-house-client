@@ -6,6 +6,7 @@ import { BsFillHouseAddFill, BsGraphUp } from 'react-icons/bs'
 import { NavLink } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 import useAuth from '../../../hooks/useAuth'
+import { MdHomeWork } from 'react-icons/md'
 
 const Sidebar = () => {
   const { logOut } = useAuth()

@@ -17,32 +17,28 @@ const router = createBrowserRouter([
         path: "/",
         element: (
           // <PrivateRoute>
-            <Home />
+          <Home />
           // </PrivateRoute>
         ),
       },
-       {
-        path: '/room/:id',
+      {
+        path: "/room/:id",
         element: (
           <PrivateRoute>
             <RoomDetails />
-           </PrivateRoute>
+          </PrivateRoute>
         ),
       },
     ],
   },
   {
     path: "/Dashboard",
-    element: <DashboardLayout></DashboardLayout>,
+    element: <DashboardLayout />,
     errorElement: <ErrorPage />,
     children: [
       {
         path: "/Dashboard",
-        element: (
-          // <PrivateRoute>
-            <p />
-          // </PrivateRoute>
-        ),
+        element: <DashboardLayout />,
       },
     ],
   },

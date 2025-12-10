@@ -1,109 +1,147 @@
-import { Link } from "react-router-dom";
+import { useState } from "react";
 import useAuth from "../../../hooks/useAuth";
-
-export default function Navber() {
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import Container from "../Container";
+import { Link } from "react-router-dom";
+import { AiOutlineMenu } from "react-icons/ai";
+const Navbar = () => {
+  const axiosSecure = useAxiosSecure();
   const { user, logOut } = useAuth();
+  const [isOpen, setIsOpen] = useState(false);
 
-  const navLink = (
-    <>
-      <Link className="m-2" to={"/"}>
-        Home
-      </Link>
-      <Link className="m-2" to={"/"}>
-        Home
-      </Link>
-      <Link className="m-2" to={"/"}>
-        Home
-      </Link>
-      <Link className="m-2" to={"/"}>
-        Home
-      </Link>
-    </>
-  );
+  // for modal
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+  const modalHandler = async () => {
+    console.log("I want to be a host");
+    try {
+      const currentUser = {
+        email: user?.email,
+        role: "guest",
+        status: "Requested",
+      };
+      const { data } = await axiosSecure.put(`/user`, currentUser);
+      console.log(data);
+      if (data.modifiedCount > 0) {
+        toast.success("Success! Please wait for admin confirmation");
+      } else {
+        toast.success("Please!, Wait for admin approval👊");
+      }
+    } catch (err) {
+      console.log(err);
+      toast.error(err.message);
+    } finally {
+      closeModal();
+    }
+  };
+
   return (
-    <div>
-      <div className="shadow-sm navbar bg-base-100">
-        <div className="navbar-start">
-          <div className="dropdown">
-            <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="w-5 h-5"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M4 6h16M4 12h8m-8 6h16"
-                />
-              </svg>
-            </div>
-            <ul
-              tabIndex="-1"
-              className="p-2 mt-3 shadow menu menu-sm dropdown-content bg-base-100 rounded-box z-1 w-52"
-            >
-              {navLink}
-            </ul>
-          </div>
-          <a className="text-xl btn btn-ghost">daisyUI</a>
-        </div>
-        <div className="hidden navbar-center lg:flex">
-          <ul className="px-1 menu menu-horizontal">{navLink}</ul>
-        </div>
-        <div className="navbar-end">
-          <div className="dropdown dropdown-end">
-            <div
-              tabIndex={0}
-              role="button"
-              className="btn btn-ghost btn-circle avatar"
-            >
-              <div className="w-10 rounded-full">
-                <img
-                  className=""
-                  referrerPolicy="no-referrer"
-                  alt="User Profile"
-                  src={
-                    user
-                      ? user?.photoURL
-                      : "https://i.ibb.co.com/mrK7Sjcw/download.png"
-                  }
-                />
+    <div className="z-10 w-full shadow-sm ">
+      <div className="py-4 border-b-[1px]">
+        <Container>
+          <div className="flex flex-row items-center justify-between gap-3 md:gap-0">
+            {/* Logo */}
+            <Link to="/">
+              <img
+                // className='hidden md:block'
+                src="https://i.ibb.co/4ZXzmq5/logo.png"
+                alt="logo"
+                width="100"
+                height="100"
+              />
+            </Link>
+            {/* Dropdown Menu */}
+            <div className="relative">
+              <div className="flex flex-row items-center gap-3">
+                {/* Become A Host btn */}
+                <div className="hidden md:block">
+                  {/* {!user && ( */}
+                  <button
+                    // disabled={!user}
+                    onClick={() => setIsModalOpen(true)}
+                    className="px-4 py-3 text-sm font-semibold transition rounded-full cursor-pointer disabled:cursor-not-allowed hover:bg-neutral-100"
+                  >
+                    Host your home
+                  </button>
+                  {/* )} */}
+                </div>
+                {/* Modal */}
+                {/* <HostModal
+                  isOpen={isModalOpen}
+                  closeModal={closeModal}
+                  modalHandler={modalHandler}
+                /> */}
+                {/* Dropdown btn */}
+                <div
+                  onClick={() => setIsOpen(!isOpen)}
+                  className="p-4 md:py-1 md:px-2 border-[1px] border-neutral-200 flex flex-row items-center gap-3 rounded-full cursor-pointer hover:shadow-md transition"
+                >
+                  <AiOutlineMenu />
+                  <div className="hidden md:block">
+                    {/* Avatar */}
+                    <img
+                      className="rounded-full"
+                      referrerPolicy="no-referrer"
+                      src={user && user.photoURL ? user.photoURL : avatarImg}
+                      alt="profile"
+                      height="30"
+                      width="30"
+                    />
+                  </div>
+                </div>
               </div>
-            </div>
-            <ul
-              tabIndex="-1"
-              className="p-2 mt-3 shadow menu menu-sm dropdown-content bg-base-100 rounded-box z-1 w-52"
-            >
-              {user && (
-                <>
-                <Link className="m-2" to={'Dashboard'}>Dashboard</Link>
-                  <li>
-                    <button
-                      onClick={() => logOut()}
-                      className="btn btn-primary"
+              {isOpen && (
+                <div className="absolute rounded-xl shadow-md w-[40vw] md:w-[10vw]  overflow-hidden right-0 top-12 text-sm">
+                  <div className="flex flex-col cursor-pointer">
+                    <Link
+                      to="/"
+                      className="block px-4 py-3 font-semibold transition md:hidden hover:bg-neutral-100"
                     >
-                      Logout
-                    </button>
-                  </li>
-                </>
+                      Home
+                    </Link>
+
+                    {user ? (
+                      <>
+                        <Link
+                          to="/dashboard"
+                          className="block px-4 py-3 font-semibold transition hover:bg-neutral-100"
+                        >
+                          Dashboard
+                        </Link>
+                        <div
+                          onClick={logOut}
+                          className="px-4 py-3 font-semibold transition cursor-pointer hover:bg-neutral-100"
+                        >
+                          Logout
+                        </div>
+                      </>
+                    ) : (
+                      <>
+                        <Link
+                          to="/login"
+                          className="px-4 py-3 font-semibold transition hover:bg-neutral-100"
+                        >
+                          Login
+                        </Link>
+                        <Link
+                          to="/signup"
+                          className="px-4 py-3 font-semibold transition hover:bg-neutral-100"
+                        >
+                          Sign Up
+                        </Link>
+                      </>
+                    )}
+                  </div>
+                </div>
               )}
-              {!user && (
-                <>
-                  <li>
-                    <Link to="/Login">Login</Link>
-                  </li>
-                  <li>
-                    <Link to="/Register">Register</Link>
-                  </li>
-                </>
-              )}
-            </ul>
+            </div>
           </div>
-        </div>
+        </Container>
       </div>
     </div>
   );
-}
+};
+
+export default Navbar;
