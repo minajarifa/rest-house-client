@@ -2,8 +2,8 @@ import { Link } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
 
 export default function Navber() {
-  const { user,logOut } = useAuth();
-  
+  const { user, logOut } = useAuth();
+
   const navLink = (
     <>
       <Link className="m-2" to={"/"}>
@@ -77,19 +77,29 @@ export default function Navber() {
               tabIndex="-1"
               className="p-2 mt-3 shadow menu menu-sm dropdown-content bg-base-100 rounded-box z-1 w-52"
             >
-              <li>
-                <Link to="/Login">Login</Link>
-              </li>
-              <li>
-                <Link to="/Register">Register</Link>
-              </li>
-              <li>
-                <button
-                 onClick={()=> logOut()}
-                  className="btn btn-primary">
-                  Logout
-                </button>
-              </li>
+              {user && (
+                <>
+                <Link className="m-2" to={'Dashboard'}>Dashboard</Link>
+                  <li>
+                    <button
+                      onClick={() => logOut()}
+                      className="btn btn-primary"
+                    >
+                      Logout
+                    </button>
+                  </li>
+                </>
+              )}
+              {!user && (
+                <>
+                  <li>
+                    <Link to="/Login">Login</Link>
+                  </li>
+                  <li>
+                    <Link to="/Register">Register</Link>
+                  </li>
+                </>
+              )}
             </ul>
           </div>
         </div>

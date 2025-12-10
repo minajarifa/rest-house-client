@@ -12,6 +12,7 @@ import {
 } from "firebase/auth";
 import axios from "axios";
 import auth from "../firebase/firebase.config";
+import { Link } from "react-router-dom";
 export const AuthContext = createContext(null);
 
 const googleProvider = new GoogleAuthProvider();
@@ -46,6 +47,7 @@ const AuthProvider = ({ children }) => {
     //   withCredentials: true,
     // });
     return signOut(auth);
+    <Link to={'Login'}></Link>
   };
 
   const updateUserProfile = (name, photo) => {

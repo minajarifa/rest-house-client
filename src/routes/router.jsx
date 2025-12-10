@@ -6,6 +6,7 @@ import Login from "../Pages/Login/Login";
 import Register from "../Pages/Register/Register";
 import PrivateRoute from "./PrivateRoute";
 import RoomDetails from "../Pages/RoomDetails/RoomDetails";
+import DashboardLayout from "../Layouts/DashboardLayout";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -26,6 +27,21 @@ const router = createBrowserRouter([
           <PrivateRoute>
             <RoomDetails />
            </PrivateRoute>
+        ),
+      },
+    ],
+  },
+  {
+    path: "/Dashboard",
+    element: <DashboardLayout></DashboardLayout>,
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        path: "/Dashboard",
+        element: (
+          // <PrivateRoute>
+            <p />
+          // </PrivateRoute>
         ),
       },
     ],
