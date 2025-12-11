@@ -7,6 +7,9 @@ import Register from "../Pages/Register/Register";
 import PrivateRoute from "./PrivateRoute";
 import RoomDetails from "../Pages/RoomDetails/RoomDetails";
 import DashboardLayout from "../Layouts/DashboardLayout";
+import Statistics from "../Pages/Dashboard/Common/Statistics";
+import AddRooms from "../Pages/Dashboard/Host/AddRooms";
+import MyListings from "../Pages/Dashboard/Host/MyListings";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -32,13 +35,21 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "/Dashboard",
+    path: "Dashboard",
     element: <DashboardLayout />,
     errorElement: <ErrorPage />,
     children: [
       {
-        path: "/Dashboard",
-        element: <DashboardLayout />,
+        index: true,
+        element: <Statistics />,
+      },
+      {
+        path: "add-rooms",
+        element: <AddRooms />,
+      },
+      {
+        path: "my-listings",
+        element: <MyListings />,
       },
     ],
   },

@@ -36,7 +36,6 @@ const Navbar = () => {
       closeModal();
     }
   };
-
   return (
     <div className="z-10 w-full shadow-sm ">
       <div className="py-4 border-b-[1px]">
@@ -56,7 +55,7 @@ const Navbar = () => {
             <div className="relative">
               <div className="flex flex-row items-center gap-3">
                 {/* Become A Host btn */}
-                <div className="hidden md:block">
+                <div className="">
                   {/* {!user && ( */}
                   <button
                     // disabled={!user}
