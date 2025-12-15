@@ -5,9 +5,9 @@ import { BsFillHouseAddFill } from "react-icons/bs";
 import { AiOutlineBars } from "react-icons/ai";
 import { BsGraphUp } from "react-icons/bs";
 import { NavLink } from "react-router-dom";
-import useAuth from "../../../hooks/useAuth";
 import { Link } from "react-router-dom";
 import { MdHomeWork } from "react-icons/md";
+import useAuth from "../../../hooks/useAuth";
 
 const Sidebar = () => {
   const { logOut } = useAuth();
@@ -19,7 +19,7 @@ const Sidebar = () => {
   return (
     <>
       {/* Small Screen sidebar */}
-      <div className="flex justify-between text-gray-800 bg-gray-100 md:hidden ">
+      <div className="flex justify-between text-gray-800 md:hidden ">
         <div>
           <div className="block p-4 font-bold cursor-pointer">
             <Link to="/">
