@@ -1,15 +1,14 @@
 import { categories } from "../Categories/CategoriesData";
 import { DateRange } from "react-date-range";
 import { useState } from "react";
-import 'react-date-range/dist/styles.css'; // main css file
-import 'react-date-range/dist/theme/default.css'; // theme css file
-
-const AddRoomForm = ({dates,handledates}) => {
+import 'react-date-range/dist/styles.css'; 
+import 'react-date-range/dist/theme/default.css'; 
+const AddRoomForm = ({dates,handledates,handleFormSubmit}) => {
   const [state, setState] = useState([
     {
       startDate: new Date(),
       endDate: null,
-      key: "selection",
+      key: "selection2",
     },
   ]);
   return (
@@ -22,7 +21,7 @@ const AddRoomForm = ({dates,handledates}) => {
                 Location
               </label>
               <input
-                className="w-full px-4 py-3 text-gray-800 border rounded-md border-rose-300 focus:outline-rose-500 "
+                className="w-full px-4 py-3 text-gray-800 border rounded-md border-rose-300 focus:outline-rose-500"
                 name="location"
                 id="location"
                 type="text"
@@ -30,7 +29,6 @@ const AddRoomForm = ({dates,handledates}) => {
                 required
               />
             </div>
-
             <div className="space-y-1 text-sm">
               <label htmlFor="category" className="block text-gray-600">
                 Category
@@ -52,13 +50,12 @@ const AddRoomForm = ({dates,handledates}) => {
                 Select Availability Range
               </label>
               {/* Calender */}
-
               <DateRange
-                rangeColors={["#F43F5E"]}
+                onChange={item => handledates(item)}
+                // rangeColors={['#F43F5E']}
                 editableDateInputs={true}
-                onChange={(item) => setState([item.selection])}
                 moveRangeOnFirstSelection={false}
-                ranges={state}
+                ranges={[dates]}
               />
             </div>
           </div>
@@ -76,7 +73,6 @@ const AddRoomForm = ({dates,handledates}) => {
                 required
               />
             </div>
-
             <div className="w-full p-4 m-auto rounded-lg ">
               <div className="relative px-5 py-3 border-4 border-gray-300 border-dotted rounded-lg file_upload">
                 <div className="flex flex-col mx-auto text-center w-max">
@@ -110,7 +106,6 @@ const AddRoomForm = ({dates,handledates}) => {
                   required
                 />
               </div>
-
               <div className="space-y-1 text-sm">
                 <label htmlFor="guest" className="block text-gray-600">
                   Total guest
@@ -125,7 +120,6 @@ const AddRoomForm = ({dates,handledates}) => {
                 />
               </div>
             </div>
-
             <div className="flex justify-between gap-2">
               <div className="space-y-1 text-sm">
                 <label htmlFor="bedrooms" className="block text-gray-600">
@@ -140,7 +134,6 @@ const AddRoomForm = ({dates,handledates}) => {
                   required
                 />
               </div>
-
               <div className="space-y-1 text-sm">
                 <label htmlFor="bathrooms" className="block text-gray-600">
                   Bathrooms
@@ -155,12 +148,10 @@ const AddRoomForm = ({dates,handledates}) => {
                 />
               </div>
             </div>
-
             <div className="space-y-1 text-sm">
               <label htmlFor="description" className="block text-gray-600">
                 Description
               </label>
-
               <textarea
                 id="description"
                 className="block w-full h-32 px-4 py-3 text-gray-800 border rounded-md focus:rose-300 border-rose-300 focus:outline-rose-500 "
@@ -169,7 +160,6 @@ const AddRoomForm = ({dates,handledates}) => {
             </div>
           </div>
         </div>
-
         <button
           type="submit"
           className="w-full p-3 mt-5 font-medium text-center text-white transition duration-200 rounded shadow-md bg-rose-500"
@@ -180,5 +170,4 @@ const AddRoomForm = ({dates,handledates}) => {
     </div>
   );
 };
-
 export default AddRoomForm;
