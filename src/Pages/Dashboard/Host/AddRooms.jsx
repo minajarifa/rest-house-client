@@ -8,17 +8,22 @@ export default function AddRooms() {
     key: "selection",
   });
   // date range handler
-  const handledates = (item) => {
-    setDates(item.selection);
-    console.log("item",item);
+  const handledates = (dates) => {
+    setDates(dates.selection);
+    console.log("item", dates);
   };
   // handle form
-  const handleFormSubmit=async(e)=>{
-
-  }
+  const handleFormSubmit = async (e) => {
+    e.preventDefault();
+   const form = e.target;
+  };
   return (
     <div>
-      <AddRoomForm dates={dates} handledates={handledates} handleFormSubmit={handleFormSubmit}></AddRoomForm>
+      <AddRoomForm
+        dates={dates}
+        handledates={handledates}
+        handleFormSubmit={handleFormSubmit}
+      ></AddRoomForm>
     </div>
   );
 }

@@ -1,19 +1,11 @@
 import { categories } from "../Categories/CategoriesData";
 import { DateRange } from "react-date-range";
-import { useState } from "react";
-import 'react-date-range/dist/styles.css'; 
-import 'react-date-range/dist/theme/default.css'; 
-const AddRoomForm = ({dates,handledates,handleFormSubmit}) => {
-  const [state, setState] = useState([
-    {
-      startDate: new Date(),
-      endDate: null,
-      key: "selection2",
-    },
-  ]);
+import "react-date-range/dist/styles.css";
+import "react-date-range/dist/theme/default.css";
+const AddRoomForm = ({ dates, handledates, handleFormSubmit }) => {
   return (
     <div className="w-full min-h-[calc(100vh-40px)] flex flex-col justify-center items-center  rounded-xl text-black">
-      <form>
+      <form onSubmit={handleFormSubmit}>
         <div className="grid grid-cols-1 gap-10 lg:grid-cols-2">
           <div className="space-y-6">
             <div className="space-y-1 text-sm">
@@ -50,8 +42,9 @@ const AddRoomForm = ({dates,handledates,handleFormSubmit}) => {
                 Select Availability Range
               </label>
               {/* Calender */}
+
               <DateRange
-                onChange={item => handledates(item)}
+                onChange={(dates) => handledates(dates)}
                 // rangeColors={['#F43F5E']}
                 editableDateInputs={true}
                 moveRangeOnFirstSelection={false}
