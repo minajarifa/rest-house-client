@@ -1,7 +1,9 @@
 import { useState } from "react";
 import AddRoomForm from "../../../Components/Form/AddRoomForm";
+import useAuth from "../../../hooks/useAuth";
 
 export default function AddRooms() {
+  const { user } = useAuth;
   const [dates, setDates] = useState({
     startDate: new Date(),
     endDate: null,
@@ -15,7 +17,22 @@ export default function AddRooms() {
   // handle form
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-   const form = e.target;
+    const form = e.target;
+    const location = form.location.value;
+    const category = form.category.value;
+    const title = form.title.value;
+    const image = form.image.files[0];
+    const price = form.price.value;
+    const total_guest = form.total_guest.value;
+    const bedrooms = form.bedrooms.value;
+    const to = "";
+    const from = "";
+    const host = {
+      name: user?.displayName,
+      image: user?.photoURL,
+      email: user?.email,
+    };
+    const image_url = 'function'
   };
   return (
     <div>

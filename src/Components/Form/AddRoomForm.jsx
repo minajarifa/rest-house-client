@@ -42,10 +42,9 @@ const AddRoomForm = ({ dates, handledates, handleFormSubmit }) => {
                 Select Availability Range
               </label>
               {/* Calender */}
-
               <DateRange
                 onChange={(dates) => handledates(dates)}
-                // rangeColors={['#F43F5E']}
+                rangeColors={['#F43F5E']}
                 editableDateInputs={true}
                 moveRangeOnFirstSelection={false}
                 ranges={[dates]}
