@@ -8,6 +8,7 @@ import useAuth from "../../hooks/useAuth";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { ImSpinner3 } from "react-icons/im";
+import { imageUpload } from "../../api/utils";
 
 export default function Register() {
   const {
@@ -33,18 +34,13 @@ export default function Register() {
     // image upload from imgbb
     try {
       setLoading(true);
-      const { data } = await axios.post(
-        `https://api.imgbb.com/1/upload?key=${
-          import.meta.env.VITE_IMGBB_API_KEY
-        }`,
-        formData
-      );
-      console.log(data.data.display_url);
+      const image_url = await imageUpload(image)
+      console.log(image_url);
       // create user
       const result = await createUser(email, password);
       console.log(result);
       // update user and added profile pic
-      await updateUserProfile(name, data?.data?.display_url);
+      await updateUserProfile(name, image_url);
       // navigate and show a toast
       navigate("/");
       Swal.fire("User created successfully");

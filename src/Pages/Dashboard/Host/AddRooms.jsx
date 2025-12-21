@@ -1,6 +1,7 @@
 import { useState } from "react";
 import AddRoomForm from "../../../Components/Form/AddRoomForm";
 import useAuth from "../../../hooks/useAuth";
+import { imageUpload } from "../../../api/utils";
 
 export default function AddRooms() {
   const { user } = useAuth;
@@ -32,7 +33,12 @@ export default function AddRooms() {
       image: user?.photoURL,
       email: user?.email,
     };
-    const image_url = 'function'
+    try {
+      const image_url = await imageUpload(image);
+      console.log(image_url);
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <div>
