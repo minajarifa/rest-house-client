@@ -35,7 +35,8 @@ export default function AddRooms() {
     };
     try {
       const image_url = await imageUpload(image);
-      console.log(image_url);
+      const formData={}
+      // console.log(image_url);
     } catch (error) {
       console.log(error);
     }
