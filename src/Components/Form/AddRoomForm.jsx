@@ -2,7 +2,12 @@ import { categories } from "../Categories/CategoriesData";
 import { DateRange } from "react-date-range";
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
-const AddRoomForm = ({ dates, handledates, handleFormSubmit }) => {
+const AddRoomForm = ({
+  dates,
+  handledates,
+  handleFormSubmit,
+  setImagePreviews,
+}) => {
   return (
     <div className="w-full min-h-[calc(100vh-40px)] flex flex-col justify-center items-center  rounded-xl text-black">
       <form onSubmit={handleFormSubmit}>
@@ -44,7 +49,7 @@ const AddRoomForm = ({ dates, handledates, handleFormSubmit }) => {
               {/* Calender */}
               <DateRange
                 onChange={(dates) => handledates(dates)}
-                rangeColors={['#F43F5E']}
+                rangeColors={["#F43F5E"]}
                 editableDateInputs={true}
                 moveRangeOnFirstSelection={false}
                 ranges={[dates]}
@@ -73,6 +78,11 @@ const AddRoomForm = ({ dates, handledates, handleFormSubmit }) => {
                       className="hidden text-sm cursor-pointer w-36"
                       type="file"
                       name="image"
+                      onChange={(e) => {
+                        setImagePreviews(
+                          URL.createObjectURL(e.target.files[0])
+                        );
+                      }}
                       id="image"
                       accept="image/*"
                       hidden
@@ -82,6 +92,11 @@ const AddRoomForm = ({ dates, handledates, handleFormSubmit }) => {
                     </div>
                   </label>
                 </div>
+              </div>
+              <div className="flex items-center justify-center ">
+                {imagePreviews && (
+                  <img src={imagePreviews} className="w-16 h-16" />
+                )}
               </div>
             </div>
             <div className="flex justify-between gap-2">

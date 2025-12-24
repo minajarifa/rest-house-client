@@ -4,7 +4,9 @@ import useAuth from "../../../hooks/useAuth";
 import { imageUpload } from "../../../api/utils";
 
 export default function AddRooms() {
-  const { user } = useAuth;
+  const { user } = useAuth();
+  const [imagePreviews, setImagePreviews] = useState();
+  const [imageText, setImageText] = useState("upload image");
   const [dates, setDates] = useState({
     startDate: new Date(),
     endDate: null,
@@ -15,6 +17,12 @@ export default function AddRooms() {
     setDates(dates.selection);
     console.log("item", dates);
   };
+  // TODO
+  // Swal.fire({
+  //   title: "Drag me!",
+  //   icon: "success",
+  //   draggable: true,
+  // });
   // handle form
   const handleFormSubmit = async (e) => {
     e.preventDefault();
@@ -26,8 +34,8 @@ export default function AddRooms() {
     const price = form.price.value;
     const total_guest = form.total_guest.value;
     const bedrooms = form.bedrooms.value;
-    const to = "";
-    const from = "";
+    const to = dates.endDate;
+    const from = dates.startDate;
     const host = {
       name: user?.displayName,
       image: user?.photoURL,
@@ -35,18 +43,34 @@ export default function AddRooms() {
     };
     try {
       const image_url = await imageUpload(image);
-      const formData={}
-      // console.log(image_url);
+      const roomData = {
+        location,
+        category,
+        title,
+        to,
+        from,
+        price,
+        total_guest,
+        bedrooms,
+        host,
+        image: image_url,
+      };
+      console.log(roomData);
     } catch (error) {
       console.log(error);
     }
   };
   return (
     <div>
+      <h1>Add rooms page</h1>
+      <div className="flex items-center justify-center ">
+        {imagePreviews && <img src={imagePreviews} className="w-16 h-16" />}
+      </div>
       <AddRoomForm
         dates={dates}
         handledates={handledates}
         handleFormSubmit={handleFormSubmit}
+        setImagePreviews={setImagePreviews}
       ></AddRoomForm>
     </div>
   );
