@@ -60,6 +60,11 @@ export default function AddRooms() {
       console.log(error);
     }
   };
+  //TODO handle image change
+  const handleImage = (image) => {
+    setImagePreviews(URL.createObjectURL(image));
+    setImageText(image.name)
+  };
   return (
     <div>
       <h1>Add rooms page</h1>
@@ -71,6 +76,9 @@ export default function AddRooms() {
         handledates={handledates}
         handleFormSubmit={handleFormSubmit}
         setImagePreviews={setImagePreviews}
+        imagePreviews={imagePreviews}
+        handleImage={handleImage}
+        imageText={imageText}
       ></AddRoomForm>
     </div>
   );

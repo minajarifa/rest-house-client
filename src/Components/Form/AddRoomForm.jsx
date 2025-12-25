@@ -6,7 +6,10 @@ const AddRoomForm = ({
   dates,
   handledates,
   handleFormSubmit,
+  imagePreviews,
   setImagePreviews,
+  handleImage,
+  imageText,
 }) => {
   return (
     <div className="w-full min-h-[calc(100vh-40px)] flex flex-col justify-center items-center  rounded-xl text-black">
@@ -70,7 +73,7 @@ const AddRoomForm = ({
                 required
               />
             </div>
-            <div className="w-full p-4 m-auto rounded-lg ">
+            <div className="flex w-full p-4 m-auto rounded-lg">
               <div className="relative px-5 py-3 border-4 border-gray-300 border-dotted rounded-lg file_upload">
                 <div className="flex flex-col mx-auto text-center w-max">
                   <label>
@@ -79,21 +82,22 @@ const AddRoomForm = ({
                       type="file"
                       name="image"
                       onChange={(e) => {
-                        setImagePreviews(
-                          URL.createObjectURL(e.target.files[0])
-                        );
+                        handleImage(e.target.files[0]);
                       }}
                       id="image"
                       accept="image/*"
                       hidden
                     />
                     <div className="p-1 px-3 font-semibold text-white border border-gray-300 rounded cursor-pointer bg-rose-500 hover:bg-rose-500">
-                      Upload Image
+                      {imageText.length>20?imageText.split(".")[0].slice(0, 15) +
+                        "....." +
+                        imageText.split(".")[1]:imageText}
                     </div>
                   </label>
                 </div>
               </div>
-              <div className="flex items-center justify-center ">
+              {/*show image of image input  */}
+              <div className="flex items-center justify-center object-cover overflow-hidden ">
                 {imagePreviews && (
                   <img src={imagePreviews} className="w-16 h-16" />
                 )}
