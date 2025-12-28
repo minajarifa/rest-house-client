@@ -2,6 +2,7 @@ import { useState } from "react";
 import AddRoomForm from "../../../Components/Form/AddRoomForm";
 import useAuth from "../../../hooks/useAuth";
 import { imageUpload } from "../../../api/utils";
+import { Helmet } from "react-helmet-async";
 
 export default function AddRooms() {
   const { user } = useAuth();
@@ -66,11 +67,10 @@ export default function AddRooms() {
     setImageText(image.name)
   };
   return (
-    <div>
-      <h1>Add rooms page</h1>
-      <div className="flex items-center justify-center ">
-        {imagePreviews && <img src={imagePreviews} className="w-16 h-16" />}
-      </div>
+    <>
+     <Helmet>
+             <title>rest-house || AddRooms</title>
+           </Helmet>;
       <AddRoomForm
         dates={dates}
         handledates={handledates}
@@ -80,6 +80,6 @@ export default function AddRooms() {
         handleImage={handleImage}
         imageText={imageText}
       ></AddRoomForm>
-    </div>
+    </>
   );
 }

@@ -73,7 +73,7 @@ const AddRoomForm = ({
                 required
               />
             </div>
-            <div className="flex w-full p-4 m-auto rounded-lg">
+            <div className="flex items-center justify-around w-full p-4 m-auto rounded-lg">
               <div className="relative px-5 py-3 border-4 border-gray-300 border-dotted rounded-lg file_upload">
                 <div className="flex flex-col mx-auto text-center w-max">
                   <label>
@@ -88,7 +88,7 @@ const AddRoomForm = ({
                       accept="image/*"
                       hidden
                     />
-                    <div className="p-1 px-3 font-semibold text-white border border-gray-300 rounded cursor-pointer bg-rose-500 hover:bg-rose-500">
+                    <div className="p-1 px-3 font-semibold text-white bg-red-500 border border-gray-300 rounded cursor-pointer hover:bg-rose-500">
                       {imageText.length>20?imageText.split(".")[0].slice(0, 15) +
                         "....." +
                         imageText.split(".")[1]:imageText}
@@ -97,9 +97,9 @@ const AddRoomForm = ({
                 </div>
               </div>
               {/*show image of image input  */}
-              <div className="flex items-center justify-center object-cover overflow-hidden ">
+              <div className="">
                 {imagePreviews && (
-                  <img src={imagePreviews} className="w-16 h-16" />
+                  <img src={imagePreviews} className="w-16 h-16 " />
                 )}
               </div>
             </div>
