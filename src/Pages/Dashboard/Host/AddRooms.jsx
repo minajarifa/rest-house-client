@@ -3,9 +3,12 @@ import AddRoomForm from "../../../Components/Form/AddRoomForm";
 import useAuth from "../../../hooks/useAuth";
 import { imageUpload } from "../../../api/utils";
 import { Helmet } from "react-helmet-async";
+import { useMutation } from "@tanstack/react-query";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 export default function AddRooms() {
   const { user } = useAuth();
+  const axiosSecure = useAxiosSecure();
   const [imagePreviews, setImagePreviews] = useState();
   const [imageText, setImageText] = useState("upload image");
   const [dates, setDates] = useState({
@@ -57,6 +60,12 @@ export default function AddRooms() {
         image: image_url,
       };
       console.log(roomData);
+      // post request to server
+      const { mutateAsync } = useMutation({
+        mutationFn: async (roomData) => {
+          const { data } = await axiosSecure.post(`/room`,roomData);
+        },
+      });
     } catch (error) {
       console.log(error);
     }
@@ -64,13 +73,14 @@ export default function AddRooms() {
   //TODO handle image change
   const handleImage = (image) => {
     setImagePreviews(URL.createObjectURL(image));
-    setImageText(image.name)
+    setImageText(image.name);
   };
   return (
     <>
-     <Helmet>
-             <title>rest-house || AddRooms</title>
-           </Helmet>;
+      <Helmet>
+        <title>rest-house || AddRooms</title>
+      </Helmet>
+      
       <AddRoomForm
         dates={dates}
         handledates={handledates}
