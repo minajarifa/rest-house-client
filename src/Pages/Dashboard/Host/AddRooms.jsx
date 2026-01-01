@@ -21,6 +21,15 @@ export default function AddRooms() {
     setDates(dates.selection);
     console.log("item", dates);
   };
+  const { mutateAsync } = useMutation({
+    mutationFn: async (roomData) => {
+      const { data } = await axiosSecure.post(`/room`, roomData);
+      return data;
+    },
+    onSuccess:()=>{
+      console.log('data saved successfully')
+    }
+  });
   // TODO
   // Swal.fire({
   //   title: "Drag me!",
@@ -61,11 +70,7 @@ export default function AddRooms() {
       };
       console.log(roomData);
       // post request to server
-      const { mutateAsync } = useMutation({
-        mutationFn: async (roomData) => {
-          const { data } = await axiosSecure.post(`/room`,roomData);
-        },
-      });
+      await mutateAsync(roomData)
     } catch (error) {
       console.log(error);
     }
@@ -80,7 +85,6 @@ export default function AddRooms() {
       <Helmet>
         <title>rest-house || AddRooms</title>
       </Helmet>
-      
       <AddRoomForm
         dates={dates}
         handledates={handledates}

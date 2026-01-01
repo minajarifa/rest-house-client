@@ -7,7 +7,6 @@ const AddRoomForm = ({
   handledates,
   handleFormSubmit,
   imagePreviews,
-  setImagePreviews,
   handleImage,
   imageText,
 }) => {
