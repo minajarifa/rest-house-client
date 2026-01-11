@@ -8,7 +8,7 @@ export default function Home() {
     <div>
       <Helmet>
         <title>rest-house || Home</title>
-      </Helmet>;
+      </Helmet>
       {/* <Button></Button> */}
       {/* category section */}
       <Categories></Categories>

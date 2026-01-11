@@ -7,13 +7,14 @@ import { useMutation } from "@tanstack/react-query";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 export default function AddRooms() {
+  const [loading, setLoading] = useState(false);
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
   const [imagePreviews, setImagePreviews] = useState();
   const [imageText, setImageText] = useState("upload image");
   const [dates, setDates] = useState({
     startDate: new Date(),
-    endDate: null,
+    endDate: new Date(),
     key: "selection",
   });
   // date range handler
@@ -26,9 +27,10 @@ export default function AddRooms() {
       const { data } = await axiosSecure.post(`/room`, roomData);
       return data;
     },
-    onSuccess:()=>{
-      console.log('data saved successfully')
-    }
+    onSuccess: () => {
+      console.log("data saved successfully");
+    },
+    onError: () => {},
   });
   // TODO
   // Swal.fire({
@@ -70,7 +72,7 @@ export default function AddRooms() {
       };
       console.log(roomData);
       // post request to server
-      await mutateAsync(roomData)
+      await mutateAsync(roomData);
     } catch (error) {
       console.log(error);
     }
@@ -93,6 +95,7 @@ export default function AddRooms() {
         imagePreviews={imagePreviews}
         handleImage={handleImage}
         imageText={imageText}
+        loading={loading}
       ></AddRoomForm>
     </>
   );

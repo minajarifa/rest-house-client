@@ -2,6 +2,7 @@ import { categories } from "../Categories/CategoriesData";
 import { DateRange } from "react-date-range";
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
+import { ImSpinner3 } from "react-icons/im";
 const AddRoomForm = ({
   dates,
   handledates,
@@ -9,6 +10,7 @@ const AddRoomForm = ({
   imagePreviews,
   handleImage,
   imageText,
+  loading,
 }) => {
   return (
     <div className="w-full min-h-[calc(100vh-40px)] flex flex-col justify-center items-center  rounded-xl text-black">
@@ -88,9 +90,11 @@ const AddRoomForm = ({
                       hidden
                     />
                     <div className="p-1 px-3 font-semibold text-white bg-red-500 border border-gray-300 rounded cursor-pointer hover:bg-rose-500">
-                      {imageText.length>20?imageText.split(".")[0].slice(0, 15) +
-                        "....." +
-                        imageText.split(".")[1]:imageText}
+                      {imageText.length > 20
+                        ? imageText.split(".")[0].slice(0, 15) +
+                          "....." +
+                          imageText.split(".")[1]
+                        : imageText}
                     </div>
                   </label>
                 </div>
@@ -171,10 +175,11 @@ const AddRoomForm = ({
           </div>
         </div>
         <button
+        disabled={loading}
           type="submit"
           className="w-full p-3 mt-5 font-medium text-center text-white transition duration-200 rounded shadow-md bg-rose-500"
         >
-          Save & Continue
+          {loading ? <ImSpinner3 className="m-auto animate-spin" /> : "Save & Continue"}
         </button>
       </form>
     </div>
