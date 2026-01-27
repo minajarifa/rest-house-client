@@ -52,7 +52,7 @@ const AddRoomForm = ({
               </label>
               {/* Calender */}
               <DateRange
-                onChange={(dates) => handledates(dates)}
+                onChange={(item) => handledates(item)}
                 rangeColors={["#F43F5E"]}
                 editableDateInputs={true}
                 moveRangeOnFirstSelection={false}
