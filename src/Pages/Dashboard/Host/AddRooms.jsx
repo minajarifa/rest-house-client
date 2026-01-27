@@ -5,8 +5,11 @@ import { imageUpload } from "../../../api/utils";
 import { Helmet } from "react-helmet-async";
 import { useMutation } from "@tanstack/react-query";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 export default function AddRooms() {
+  const navigate = useNavigate()
   const [loading, setLoading] = useState(false);
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
@@ -20,7 +23,6 @@ export default function AddRooms() {
   // date range handler
   const handledates = (dates) => {
     setDates(dates.selection);
-    console.log("item", dates);
   };
   const { mutateAsync } = useMutation({
     mutationFn: async (roomData) => {
@@ -29,18 +31,22 @@ export default function AddRooms() {
     },
     onSuccess: () => {
       console.log("data saved successfully");
+      // TODO
+      Swal.fire({
+        title: "data saved successfully!",
+        icon: "success",
+        draggable: true,
+      });
+      navigate('/dashboard/my-listings')
+      setLoading(false);
     },
-    onError: () => {},
+    
   });
-  // TODO
-  // Swal.fire({
-  //   title: "Drag me!",
-  //   icon: "success",
-  //   draggable: true,
-  // });
+
   // handle form
   const handleFormSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     const form = e.target;
     const location = form.location.value;
     const category = form.category.value;
@@ -74,7 +80,13 @@ export default function AddRooms() {
       // post request to server
       await mutateAsync(roomData);
     } catch (error) {
+       Swal.fire({
+        title: `${error?.message}`,
+        icon: "success",
+        draggable: true,
+      });
       console.log(error);
+      setLoading(false);
     }
   };
   //TODO handle image change

@@ -175,11 +175,15 @@ const AddRoomForm = ({
           </div>
         </div>
         <button
-        disabled={loading}
+          disabled={loading}
           type="submit"
           className="w-full p-3 mt-5 font-medium text-center text-white transition duration-200 rounded shadow-md bg-rose-500"
         >
-          {loading ? <ImSpinner3 className="m-auto animate-spin" /> : "Save & Continue"}
+          {loading ? (
+            <ImSpinner3 className="m-auto animate-spin" />
+          ) : (
+            "Save & Continue..."
+          )}
         </button>
       </form>
     </div>
