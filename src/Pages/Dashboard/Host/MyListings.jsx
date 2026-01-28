@@ -1,24 +1,29 @@
 import { Helmet } from "react-helmet-async";
-// import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../../hooks/useAuth";
 import LoadingSpinner from "../../../Components/Shared/LoadingSpinner";
-import useAxiosCommon from "../../../hooks/useAxiosCommon";
+import RoomDataRow from "../../../Components/TableRows/RoomDataRows";
 
 const MyListings = () => {
-  const axiosCommon = useAxiosCommon();
-  // const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
-  console.log(user)
-  const { data: rooms = [], isLoading } = useQuery({
+  const axiosSecure = useAxiosSecure();  
+  const {
+    data: rooms = [],
+    isLoading,
+    refetch,
+  } = useQuery({
     queryKey: ["my-listing", user?.email],
     queryFn: async () => {
-      const { data } = await axiosCommon.get(`/my-listing/${user?.email}`);
+      const { data } = await axiosSecure.get(`/my-listing/${user?.email}`);
       return data;
-      console.log(data.data)
     },
   });
-   if (isLoading) return <LoadingSpinner />;
+  // Handle Delete
+  const handleDelete=(id)=>{
+    console.log(id)
+  }
+  if (isLoading) return <LoadingSpinner />;
   return (
     <>
       <Helmet>
@@ -75,9 +80,17 @@ const MyListings = () => {
                     </th>
                   </tr>
                 </thead>
-                <tbody>{
-                  rooms.map(room=>(<p key={room?._id}>{room.title}</p>))
-                  }</tbody>
+                <tbody>
+                  {rooms.map((room) => (
+                    // <p key={room?._id}>{room.title}</p>
+                    <RoomDataRow
+                      key={room?._id}
+                      room={room}
+                      refetch={refetch}
+                      handleDelete={handleDelete}
+                    ></RoomDataRow>
+                  ))}
+                </tbody>
               </table>
             </div>
           </div>
